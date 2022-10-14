@@ -1,0 +1,5 @@
+server {
+    listen 3001;
+    return 200 'OK';
+    add_header Content-Type text/plain;
+}

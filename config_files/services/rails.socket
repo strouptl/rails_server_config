@@ -1,0 +1,20 @@
+[Unit]
+Description=Rails Sockets
+
+[Socket]
+#ListenStream=0.0.0.0:9292
+#ListenStream=0.0.0.0:9293
+
+# AF_UNIX domain socket
+# SocketUser, SocketGroup, etc. may be needed for Unix domain sockets
+ListenStream=/var/run/rails.sock
+
+# Socket options matching Puma defaults
+NoDelay=true
+ReusePort=true
+Backlog=1024
+
+SocketUser=ubuntu
+
+[Install]
+WantedBy=sockets.target
