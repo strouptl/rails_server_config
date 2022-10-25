@@ -31,7 +31,7 @@ EnvironmentFile=/etc/environment.d/rails.conf
 # SystemD will not run puma even if it is in your path. You must specify
 # an absolute URL to puma. For example /usr/local/bin/puma
 # Alternatively, create a binstub with `bundle binstubs puma --path ./sbin` in the WorkingDirectory
-ExecStart=/usr/share/rvm/bin/rvm in /var/www/rails/current do sbin/puma -C config/puma.rb
+ExecStart=/usr/share/rvm/bin/rvm in /var/www/rails/current do sbin/puma -C config/puma/production.rb
 
 Restart=always
 
