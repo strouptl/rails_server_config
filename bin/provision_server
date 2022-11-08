@@ -7,6 +7,10 @@ gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703
 sudo apt-add-repository -y ppa:rael-gc/rvm
 
 # Install Packages
+
+## PostgreSQL Client
+sudo apt install postgresql-client-14 -y
+
 ## Nginx
 sudo apt install nginx -y
 
@@ -21,8 +25,8 @@ sudo apt-get install rvm -y
 sudo apt-get install libncurses5-dev, libgmp-dev, libssl-dev -y
 sudo usermod -a -G rvm $USER
 
-## NodeJS
-sudo apt-get install nodejs -y
+## Yarn
+sudo apt-get install yarnpkg -y
 
 ## Ruby Gem dependencies (PostgreSQL and ActiveStorage)
 sudo apt install libpq-dev -y
