@@ -33,6 +33,10 @@ EnvironmentFile=/etc/environment.d/rails.conf
 # Alternatively, create a binstub with `bundle binstubs puma --path ./sbin` in the WorkingDirectory
 ExecStart=/usr/share/rvm/bin/rvm in /var/www/rails/current do sbin/puma -C config/puma/production.rb
 
+# Logging
+StandardOutput=append:/var/www/rails/shared/log/production.log
+StandardError=append:/var/www/rails/shared/log/production.log
+
 Restart=always
 
 [Install]

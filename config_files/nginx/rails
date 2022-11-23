@@ -12,8 +12,8 @@ server {
 
   # path for static files
   root /var/www/rails/current/public;
-  #access_log /myapp/log/nginx.access.log;
-  #error_log /myapp/log/nginx.error.log info;
+  access_log /var/www/rails/shared/log/nginx.access.log main;
+  error_log /var/www/rails/shared/log/nginx.error.log info;
 
   # this rewrites all the requests to the maintenance.html
   # page if it exists in the doc root. This is for capistrano's

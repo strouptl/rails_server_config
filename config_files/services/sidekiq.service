@@ -88,9 +88,9 @@ Environment=MALLOC_ARENA_MAX=2
 RestartSec=1
 Restart=always
 
-# output goes to /var/log/syslog (Ubuntu) or /var/log/messages (CentOS)
-StandardOutput=syslog
-StandardError=syslog
+# Logging
+StandardOutput=append:/var/www/rails/shared/log/sidekiq.log
+StandardError=append:/var/www/rails/shared/log/sidekiq.log
 
 # This will default to "bundler" if we don't specify it
 SyslogIdentifier=sidekiq
