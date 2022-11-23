@@ -14,3 +14,6 @@ sudo cp config_files/services/sidekiq.service /etc/systemd/system/
 
 # Logrotate
 sudo cp config_files/logrotate/rails /etc/logrotate.d
+
+# Yarn
+cp config_files/yarn/.bash_aliases ~
