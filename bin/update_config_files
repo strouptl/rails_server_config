@@ -2,6 +2,7 @@
 
 # Nginx
 sudo rm /etc/nginx/sites-enabled/default
+sudo cp config_files/nginx/nginx.conf /etc/nginx/
 sudo cp config_files/nginx/health_check /etc/nginx/sites-available/
 sudo cp config_files/nginx/rails /etc/nginx/sites-available/
 sudo ln -s /etc/nginx/sites-available/health_check /etc/nginx/sites-enabled/
