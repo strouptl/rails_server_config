@@ -21,6 +21,11 @@ server {
   access_log /var/www/rails/shared/log/nginx.access.log main;
   error_log /var/www/rails/shared/log/nginx.error.log info;
 
+  # Redirect Root Domain
+  if ($host = example.com) {
+    return 301 https://www.$host$request_uri;
+  }
+
   # this rewrites all the requests to the maintenance.html
   # page if it exists in the doc root. This is for capistrano's
   # disable web task
