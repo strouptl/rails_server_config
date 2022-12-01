@@ -6,9 +6,9 @@ wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-
 # Install packe
 sudo dpkg -i -E ~/amazon-cloudwatch-agent.deb
 
-# Update config file
-sudo cp config_files/aws/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/
-
 # Enable and start service
 sudo systemctl enable amazon-cloudwatch-agent
 sudo service amazon-cloudwatch-agent start
+
+# Cleanup installation files
+rm amazon-cloudwatch-agent.deb

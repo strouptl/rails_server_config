@@ -40,12 +40,12 @@ sudo mkdir /var/www/rails
 sudo chown -R ubuntu:ubuntu /var/www/rails
 mkdir /var/www/rails/shared
 
-# Update Config Files
-./bin/update_config_files
-
 # Enable services
 sudo systemctl enable rails
 sudo systemctl enable sidekiq
 
 # Reload services (for logrotate)
 sudo systemctl daemon-reload
+
+# Install AWS Cloudwatch
+./bin/install_aws_cloudwatch

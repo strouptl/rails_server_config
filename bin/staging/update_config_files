@@ -1,14 +1,18 @@
 #!/bin/bash
 
+# WARNING: Do not run script without backing up existing rails nginx site config, as this script will overwrite it
+
+# Differences from Production
+# 1. It uses a standalone nginx site configuration, with SSL
+# 2. It does not add a "health_check" site (unneeded for staging instances)
+# 3. It affixes "Staging" to the AWS Cloudwatch logs, to keep staging logs separate from production
+
 # Nginx
 sudo rm /etc/nginx/sites-enabled/default
 sudo cp config_files/nginx/nginx.conf /etc/nginx/
 
-sudo cp config_files/nginx/rails /etc/nginx/sites-available/
+sudo cp config_files/nginx/staging/rails /etc/nginx/sites-available/
 sudo ln -s /etc/nginx/sites-available/rails /etc/nginx/sites-enabled/
-
-sudo cp config_files/nginx/health_check /etc/nginx/sites-available/
-sudo ln -s /etc/nginx/sites-available/health_check /etc/nginx/sites-enabled/
 
 # ImageMagick
 sudo cp config_files/image-magick/policy.xml /etc/ImageMagick-6/
@@ -25,4 +29,4 @@ sudo cp config_files/logrotate/rails /etc/logrotate.d
 cp config_files/yarn/.bash_aliases ~
 
 # AWS Cloudwatch
-sudo cp config_files/aws/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/
+sudo cp config_files/aws/staging/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/
