@@ -14,9 +14,6 @@ sudo apt install postgresql-client-14 -y
 ## Nginx
 sudo apt install nginx -y
 
-## Redis
-sudo apt install redis -y
-
 ## Logrotate
 sudo apt install logrotate -y
 
