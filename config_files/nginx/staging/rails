@@ -18,7 +18,7 @@ server {
 
   # path for static files
   root /var/www/rails/current/public;
-  access_log /var/www/rails/shared/log/nginx.access.log main;
+  access_log /var/www/rails/shared/log/nginx.access.log rails;
   error_log /var/www/rails/shared/log/nginx.error.log info;
 
   # Redirect Root Domain
