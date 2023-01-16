@@ -3,6 +3,7 @@
 # Nginx
 sudo rm /etc/nginx/sites-enabled/default
 sudo cp config_files/nginx/nginx.conf /etc/nginx/
+sudo cp config_files/nginx/self-signed.conf /etc/nginx/snippets
 
 sudo cp config_files/nginx/rails /etc/nginx/sites-available/
 sudo ln -s /etc/nginx/sites-available/rails /etc/nginx/sites-enabled/

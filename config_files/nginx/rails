@@ -3,7 +3,8 @@ upstream puma {
 }
 
 server {
-  listen 80 default_server;
+  listen 443 ssl default_server;
+  include snippets/self-signed.conf;
 
   # ~2 seconds is often enough for most folks to parse HTML/CSS and
   # retrieve needed images/icons/frames, connections are cheap in
