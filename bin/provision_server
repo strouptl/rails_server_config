@@ -44,5 +44,8 @@ sudo systemctl enable sidekiq
 # Reload services (for logrotate)
 sudo systemctl daemon-reload
 
+# Install GeoIpUpdate
+./bin/install_geoipupdate
+
 # Install AWS Cloudwatch
 ./bin/install_aws_cloudwatch
