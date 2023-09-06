@@ -11,6 +11,11 @@ server {
   # nginx so increasing this is generally safe...
   keepalive_timeout 5;
 
+  # Return 404 for any requests that do not match the specified domain name
+  # if ($host !~* .+\.example\.com) {
+  #   return 404;
+  # }
+
   # path for static files
   root /var/www/rails/current/public;
   access_log /var/www/rails/shared/log/nginx.access.log rails;
