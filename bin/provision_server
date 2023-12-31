@@ -9,7 +9,7 @@ sudo apt-add-repository -y ppa:rael-gc/rvm
 # Install Packages
 
 ## PostgreSQL Client
-sudo apt install postgresql-client-14 -y
+sudo apt install postgresql-client -y
 
 ## Nginx
 sudo apt install nginx -y
