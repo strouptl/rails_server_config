@@ -1,7 +1,15 @@
 #!/bin/bash
 
+arch=$(arch)
+
+if  [[ $arch == aarch64 ]]; then
+  url=https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/arm64/latest/amazon-cloudwatch-agent.deb
+else
+  url=https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb
+fi
+
 # Get package
-wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb -P ~
+wget $url -P ~
 
 # Install packe
 sudo dpkg -i -E ~/amazon-cloudwatch-agent.deb
