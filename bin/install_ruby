@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Add sources (https://rvm.io/rvm/install#ubuntu)
+sudo apt-get install software-properties-common -y
+gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+sudo apt-add-repository -y ppa:rael-gc/rvm
+
+# Install RVM (https://rvm.io/rvm/install#ubuntu)
+sudo apt-get install rvm -y
+sudo apt-get install libncurses5-dev, libgmp-dev, libssl-dev -y
+sudo usermod -a -G rvm $USER
+
+# Install Ruby Gem dependencies (PostgreSQL and ActiveStorage)
+sudo apt install libpq-dev -y
+sudo apt install imagemagick libvips -y
+
+# Install latest Ruby
+rvm install ruby --latest
