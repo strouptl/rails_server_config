@@ -19,4 +19,4 @@ sudo systemctl enable amazon-cloudwatch-agent
 sudo service amazon-cloudwatch-agent start
 
 # Cleanup installation files
-rm amazon-cloudwatch-agent.deb
+rm ~/amazon-cloudwatch-agent.deb
