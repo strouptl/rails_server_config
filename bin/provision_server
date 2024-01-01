@@ -3,12 +3,18 @@
 echo "Are you provisioning this server for staging or for production (S: staging, P: production)?"
 
 read environment
-if [$environment == S]
+
+if [[ $environment == S ]]; then
   environment=staging
-elif [$environment == P]
+elif [[ $environment == P ]]; then
   environment=production
 else
   environment=production
+fi
+
+if [[ $environment == production ]]; then
+  echo "Is this a web server or a worker (web, worker)?"
+  read server_type
 fi
 
 # Install Packages
@@ -40,15 +46,25 @@ sudo chown -R ubuntu:ubuntu /var/www/rails
 mkdir /var/www/rails/shared
 
 # Update config files
-if [$environment == P]
+if [[ $environment == production ]]; then
   ./bin/update_config_files
 else
   ./bin/staging/update_config_files
 fi
 
 # Enable services
-sudo systemctl enable rails
-sudo systemctl enable sidekiq
+if [[ $environment == staging ]]; then
+  sudo systemctl enable rails
+  sudo systemctl enable sidekiq
+fi
+
+if [[ $environment == production ]]; then
+  if [[ $server_type == web ]]; then
+    sudo systemctl enable rails
+  elif [[ $server_type == worker ]]; then
+    sudo systemctl enable sidekiq
+  fi
+fi
 
 # Reload services (for logrotate)
 sudo systemctl daemon-reload
