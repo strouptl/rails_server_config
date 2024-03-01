@@ -32,24 +32,29 @@ sudo apt install logrotate -y
 sudo apt install yarnpkg -y
 
 # Install Ruby
-./bin/install_ruby
+./bin/provision_server_scripts/install_ruby
 
 # Install GeoIpUpdate
-./bin/install_geoipupdate
+./bin/provision_server_scripts/install_geoipupdate
 
 # Install AWS Cloudwatch
-./bin/install_aws_cloudwatch
+./bin/provision_server_scripts/install_aws_cloudwatch
 
 # Prepare Capistrano Directory
 sudo mkdir /var/www/rails
 sudo chown -R ubuntu:ubuntu /var/www/rails
 mkdir /var/www/rails/shared
 
+# Self signed certificate
+if [[ $environment == P ]]; then
+  ./bin/provision_server_scripts/create_self_signed_certificate
+fi
+
 # Update config files
 if [[ $environment == production ]]; then
-  ./bin/update_config_files
+  ./bin/provision_server_scripts/update_config_files
 else
-  ./bin/staging/update_config_files
+  ./bin/provision_server_scripts/update_config_files_staging
 fi
 
 # Enable services

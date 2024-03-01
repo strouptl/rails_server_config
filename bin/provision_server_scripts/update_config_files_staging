@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# WARNING: Do not run script without backing up existing rails nginx site config, as this script will overwrite it
-
 # Differences from Production
 # 1. It uses a standalone nginx site configuration, with SSL
 # 2. It does not add a "health_check" site (unneeded for staging instances)
