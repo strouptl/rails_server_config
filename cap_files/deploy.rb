@@ -70,7 +70,7 @@ end
 
 after "deploy:published", "restart_sidekiq"
 
-# Set AWS Credentials for Autoscaling
+# Set AWS Credentials for Autoscaling (must have full read/write access to EC2)
 set :aws_region,     ENV['AWS_REGION']
 set :aws_access_key, ENV['CAP_AWS_ACCESS_KEY_ID']
 set :aws_secret_key, ENV['CAP_AWS_SECRET_ACCESS_KEY']
