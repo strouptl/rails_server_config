@@ -11,35 +11,71 @@ This repo contains the scripts (and the configuration files to go with them) for
 - Others (AWS Cloudwatch, GeoIPUpdate, etc.)
 
 
-## Prerequisites:
-- Firewall settings: you have already configured the server's and/or the hosting service's firewall
-- SSH settings: you have already configured your development server with the ability to login via SSH to staging and production instances
+## Prerequisites: SSH
+1. Create a public key if needed in your development environment
 
+ ```
+ sudo apt-get install ssh-keygen
+ cd ~/.ssh
+ ssh-keygen
+ ```
+
+ Reference: https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key
+
+2. Add the public key (identified by id_rsa.pub) to the ~/.ssh/known_hosts file on the target server
+
+3. Make sure you can SSH into the target server.
 
 ## Server setup
-- Download this repo to the home directory of the server
-- Run "provision_server" (./bin/provision_server) and answer the prompts
-- Create a "rails.conf" file in the /etc/environment.d/ directory, and set any needed environment variables there. For example:
+1. Clone this repo to the home directory of the target server
 
+```
+git clone https://github.com/strouptl/rails_server_config"
+```
+
+2. Run the "provision_server" script and answer the prompts
+
+```
+cd rails_server_config
+./bin/provision_server
+```
+
+3. Create a "rails.conf" file in the /etc/environment.d/ directory, and set any needed environment variables there.
+
+For example:
 ```
 # /etc/environment.d/rails.conf
 RAILS_ENV=production
 DOMAIN_NAME=example.com
 ```
 
+4. Consider setting the RAILS_ENV and any other essential environment variables in your local bash shell, as well (rails.conf will only load within the service)
+
+```
+# ~/.profile
+RAILS_ENV=production
+DOMAIN_NAME=example.com
+```
 
 ## Capistrano Setup
 1. Add the following to your Gemfile (development group)
 
 ```
- gem "capistrano", require: false
- gem "capistrano-rails", require: false
- gem "capistrano-bundler", require: false
- gem 'capistrano-rvm', require: false
- gem 'elbas', require: false
+# Gemfile
+group :development do
+  gem "capistrano", require: false
+  gem "capistrano-rails", require: false
+  gem "capistrano-bundler", require: false
+  gem 'capistrano-rvm', require: false
+  gem 'elbas', require: false
+end
 ```
 
-2. Run "bundle exec cap install" from your rails repo to generate the default Capistrano files
+2. Install Capistrano to generate the default Capistrano files
+
+```
+bundle exec cap install
+```
 
 3. Update the contents of the default Capistrano files as needed from the cap_files directory of this repo:
 
@@ -51,15 +87,15 @@ DOMAIN_NAME=example.com
 
 References: https://github.com/capistrano/capistrano/blob/master/README.md#install-the-capistrano-gem
 
-3. Create a (or use an existing) .env file in your rails repo, and populate the needed AWS environment variable keys
-
-NOTE: this AWS user must have full access to EC2 in order to interact with the Target Group and/or Templates. Keep it safe, and keep it separate from other AWS Credentials.
+4. Add the following environment variables to the .env file in your rails repo
 
 ```
 AWS_REGION=
 CAP_AWS_ACCESS_KEY_ID=
 CAP_AWS_SECRET_ACCESS_KEY=
 ```
+
+NOTE: This AWS user must have full access to EC2 in order to interact with the Target Group and/or Templates. Keep it safe, and keep it separate from other AWS Credentials.
 
 ## Finalize Nginx Configuration 
 
