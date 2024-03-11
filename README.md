@@ -112,7 +112,7 @@ sudo certbot
 
 References: https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal
 
-### Production
+### Production (using AWS terms)
 
 1. Create a Launch Template from your production server above
 
@@ -120,8 +120,8 @@ References: https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal
 
 3. Create an AWS Scaling Group, referencing the Target Group above
 
-4. Create an SSL Certificate for your desired domain name via AWS Certificat Manager
+4. Create an SSL Certificate for your desired domain name via AWS Certificate Manager
 
 5. Create a Load Balancer with this certificate, and configure it to forward traffic to the desired AWS Target Group
 
-NOTE: The above is a rough outline of the general requirements for utilizing AWS Autoscaling. For Steps 2~5, we recommend utilizing Terraform/OpenTofu for configuring the cloud environment properly (coming soon!).
+NOTE: The above is a rough outline of the general requirements for utilizing AWS Autoscaling. For Steps 2,3, and 5, we recommend utilizing Terraform/OpenTofu for configuring the AWS cloud environment properly (coming soon!).
