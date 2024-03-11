@@ -22,7 +22,9 @@ This repo contains the scripts (and the configuration files to go with them) for
 
  Reference: https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key
 
-2. Add the public key (identified by id_rsa.pub) to the ~/.ssh/known_hosts file on the target server
+2. Add the public key (identified by id_rsa.pub) to the ~/.ssh/authorized_keys file on the target server
+
+NOTE: This may be configured for you at server creation, depending on the Cloud Provider.
 
 3. Make sure you can SSH into the target server.
 
@@ -96,6 +98,14 @@ CAP_AWS_SECRET_ACCESS_KEY=
 ```
 
 NOTE: This AWS user must have full access to EC2 in order to interact with the Target Group and/or Templates. Keep it safe, and keep it separate from other AWS Credentials.
+
+## Capistrano - Server Side
+
+On the server side, you need to enable the server to read from your application's git repo. To do so:
+
+1. Create a private key (same as above)
+
+2. Add this private key to your application's Git repo
 
 ## Final DNS/Hosting Configuration 
 
