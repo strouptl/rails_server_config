@@ -97,10 +97,13 @@ CAP_AWS_SECRET_ACCESS_KEY=
 
 NOTE: This AWS user must have full access to EC2 in order to interact with the Target Group and/or Templates. Keep it safe, and keep it separate from other AWS Credentials.
 
-## Finalize Nginx Configuration 
+## Final DNS/Hosting Configuration 
 
 ### Staging
-Install certbot, and obtain SSL certificate
+
+1. Point your desired domain name (e.g. www.example.com) to the IP address of your server.
+
+2. Install certbot, and obtain SSL certificate
 
 ```
 sudo apt-get install certbot
@@ -110,7 +113,15 @@ sudo certbot
 References: https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal
 
 ### Production
-1. Configure your servers to utilize a self-signed SSL certificate with Nginx
-Already done, if you used the "production" option when provisioning the server
 
-2. Configure a load balancer to forward traffic to your servers via target group
+1. Create a Launch Template from your production server above
+
+2. Create a Target Group referencing this Launch Template
+
+3. Create an AWS Scaling Group, referencing the Target Group above
+
+4. Create an SSL Certificate for your desired domain name via AWS Certificat Manager
+
+5. Create a Load Balancer with this certificate, and configure it to forward traffic to the desired AWS Target Group
+
+NOTE: The above is a rough outline of the general requirements for utilizing AWS Autoscaling. For Steps 2~5, we recommend utilizing Terraform/OpenTofu for configuring the cloud environment properly (coming soon!).
