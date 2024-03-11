@@ -17,6 +17,9 @@ if [[ $environment == production ]]; then
   read server_type
 fi
 
+echo "Is this an AWS servier (true/false)?"
+read aws_server
+
 # Install Packages
 
 ## PostgreSQL Client
@@ -38,7 +41,9 @@ sudo apt install yarnpkg -y
 ./bin/provision_server_scripts/install_geoipupdate
 
 # Install AWS Cloudwatch
-./bin/provision_server_scripts/install_aws_cloudwatch
+if [[ $aws_server == true ]]; then
+  ./bin/provision_server_scripts/install_aws_cloudwatch
+fi
 
 # Prepare Capistrano Directory
 sudo mkdir /var/www/rails
