@@ -48,18 +48,22 @@ For example:
 ```
 # /etc/environment.d/rails.conf
 RAILS_ENV=production
-DOMAIN_NAME=example.com
+SECRET_KEY_BASE=
+DOMAIN_NAME=
 ```
+
+NOTE: You can run "rails secret" on any server (including a development machine) to generate the value for the SECRET_KEY_BASE environment variable)
 
 4. Consider setting the RAILS_ENV and any other essential environment variables in your local bash shell, as well (rails.conf will only load within the service)
 
 ```
 # ~/.profile
 RAILS_ENV=production
-DOMAIN_NAME=example.com
+DOMAIN_NAME=
+SECRET_KEY_BASE=
 ```
 
-## Capistrano Setup
+## Applicaion Configuration
 1. Add the following to your Gemfile (development group)
 
 ```
@@ -70,6 +74,8 @@ group :development do
   gem "capistrano-bundler", require: false
   gem 'capistrano-rvm', require: false
   gem 'elbas', require: false
+  gem 'ed25519', require: false
+  gem 'bcrypt_pbkdf', require: false
 end
 ```
 
@@ -79,17 +85,15 @@ end
 bundle exec cap install
 ```
 
-3. Update the contents of the default Capistrano files as needed from the cap_files directory of this repo:
-
-```
- Capfile > (project_root)
- deploy.rb > config/
- deploy/* > config/deploy/*
-```
-
 References: https://github.com/capistrano/capistrano/blob/master/README.md#install-the-capistrano-gem
 
-4. Add the following environment variables to the .env file in your rails repo
+3. Copy the application config files to your application, updating the Capistrano files where needed
+
+```
+cp -r config_files/application/* YOUR_APPLICATION_DIRECTORY
+```
+
+4. (If using AWS autoscaling) Add the following environment variables to the .env file in your rails repo
 
 ```
 AWS_REGION=
