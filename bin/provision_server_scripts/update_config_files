@@ -2,28 +2,28 @@
 
 # Nginx
 sudo rm /etc/nginx/sites-enabled/default
-sudo cp config_files/nginx/nginx.conf /etc/nginx/
-sudo cp config_files/nginx/self-signed.conf /etc/nginx/snippets
+sudo cp config_files/server/nginx/nginx.conf /etc/nginx/
+sudo cp config_files/server/nginx/self-signed.conf /etc/nginx/snippets
 
-sudo cp config_files/nginx/rails /etc/nginx/sites-available/
+sudo cp config_files/server/nginx/rails /etc/nginx/sites-available/
 sudo ln -s /etc/nginx/sites-available/rails /etc/nginx/sites-enabled/
 
-sudo cp config_files/nginx/health_check /etc/nginx/sites-available/
+sudo cp config_files/server/nginx/health_check /etc/nginx/sites-available/
 sudo ln -s /etc/nginx/sites-available/health_check /etc/nginx/sites-enabled/
 
 # ImageMagick
-sudo cp config_files/image-magick/policy.xml /etc/ImageMagick-6/
+sudo cp config_files/server/image-magick/policy.xml /etc/ImageMagick-6/
 
 # Services
-sudo cp config_files/services/rails.service /etc/systemd/system/
-sudo cp config_files/services/rails.socket /etc/systemd/system/
-sudo cp config_files/services/sidekiq.service /etc/systemd/system/
+sudo cp config_files/server/services/rails.service /etc/systemd/system/
+sudo cp config_files/server/services/rails.socket /etc/systemd/system/
+sudo cp config_files/server/services/sidekiq.service /etc/systemd/system/
 
 # Logrotate
-sudo cp config_files/logrotate/rails /etc/logrotate.d
+sudo cp config_files/server/logrotate/rails /etc/logrotate.d
 
 # Yarn
-cp config_files/yarn/.bash_aliases ~
+cp config_files/server/yarn/.bash_aliases ~
 
 # AWS Cloudwatch
-sudo cp config_files/aws/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/
+sudo cp config_files/server/aws/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/
