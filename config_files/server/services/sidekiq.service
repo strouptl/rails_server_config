@@ -69,7 +69,7 @@ WorkingDirectory=/var/www/rails/current
 # ExecStart=/home/deploy/.rvm/bin/rvm in /opt/myapp/current do bundle exec sidekiq -e production
 
 EnvironmentFile=/etc/environment.d/rails.conf
-ExecStart=/usr/share/rvm/bin/rvm in /var/www/rails/current do sbin/sidekiq -C config/sidekiq.yml
+ExecStart=/usr/share/rvm/bin/rvm in /var/www/rails/current do bin/sidekiq -C config/sidekiq.yml
 
 # Use `systemctl kill -s TSTP sidekiq` to quiet the Sidekiq process
 

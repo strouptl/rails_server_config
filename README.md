@@ -68,6 +68,11 @@ SECRET_KEY_BASE=
 
 ```
 # Gemfile
+
+# For allowing Puma to notify systemd of successful/unsuccessful start/stop/restart events
+gem "sd_notify"
+
+# For using Capistrano to deploy
 group :development do
   gem "capistrano", require: false
   gem "capistrano-rails", require: false
@@ -93,7 +98,14 @@ References: https://github.com/capistrano/capistrano/blob/master/README.md#insta
 cp -r config_files/application/* YOUR_APPLICATION_DIRECTORY
 ```
 
-4. (If using AWS autoscaling) Add the following environment variables to the .env file in your rails repo
+4. Generate binstubs for puma and sidekiq for the services
+
+```
+bundle binstubs puma
+bundle binstubs sidekiq
+```
+
+5. (If using AWS autoscaling) Add the following environment variables to the .env file in your rails repo
 
 ```
 AWS_REGION=
