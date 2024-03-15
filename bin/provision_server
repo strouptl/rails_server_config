@@ -1,23 +1,13 @@
 #!/bin/bash
 
-echo "Are you provisioning this server for staging or for production (S: staging, P: production)?"
+echo "Is this a proxied server (with a load balancer in front)? [true/false]?"
 
-read environment
+read proxied
 
-if [[ $environment == S ]]; then
-  environment=staging
-elif [[ $environment == P ]]; then
-  environment=production
-else
-  environment=production
-fi
+echo "Is this a web server, a worker, or both (web, worker, both)?"
+read server_type
 
-if [[ $environment == production ]]; then
-  echo "Is this a web server or a worker (web, worker)?"
-  read server_type
-fi
-
-echo "Is this an AWS servier (true/false)?"
+echo "Is this an AWS server (true/false)?"
 read aws_server
 
 # Install Packages
@@ -49,32 +39,25 @@ fi
 sudo mkdir /var/www/rails
 sudo chown -R ubuntu:ubuntu /var/www/rails
 mkdir /var/www/rails/shared
+mkdir /var/www/rails/shared/config
+mkdir /var/www/rails/shared/log
 
-# Self signed certificate
-if [[ $environment == P ]]; then
+# Generate self-signed certificate
+if [[ $proxied == true ]]; then
   ./bin/provision_server_scripts/create_self_signed_certificate
 fi
 
 # Update config files
-if [[ $environment == production ]]; then
-  ./bin/provision_server_scripts/update_config_files
-else
-  ./bin/provision_server_scripts/update_config_files_staging
-fi
+./bin/provision_server_scripts/update_config_files
 
 # Enable services
-if [[ $environment == staging ]]; then
+if [[ $server_type == web ]] || [[ $server_type == both ]]; then
   sudo systemctl enable rails
+fi
+
+if [[ $server_type == worker ]] || [[ $server_type == both ]]; then
   sudo systemctl enable sidekiq
 fi
 
-if [[ $environment == production ]]; then
-  if [[ $server_type == web ]]; then
-    sudo systemctl enable rails
-  elif [[ $server_type == worker ]]; then
-    sudo systemctl enable sidekiq
-  fi
-fi
-
-# Reload services (for logrotate)
+# Reload services
 sudo systemctl daemon-reload

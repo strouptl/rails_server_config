@@ -2,14 +2,22 @@
 
 # Nginx
 sudo rm /etc/nginx/sites-enabled/default
-sudo cp config_files/server/nginx/nginx.conf /etc/nginx/
-sudo cp config_files/server/nginx/self-signed.conf /etc/nginx/snippets
+if [[ $proxied == true ]]; then
+  sudo cp config_files/server/nginx/proxied/nginx.conf /etc/nginx/
+  sudo cp config_files/server/nginx/proxied/self-signed.conf /etc/nginx/snippets
+  sudo cp config_files/server/nginx/proxied/rails /etc/nginx/sites-available/
+  sudo cp config_files/server/nginx/proxied/health_check /etc/nginx/sites-available/
+else
+  sudo cp config_files/server/nginx/standalone/nginx.conf /etc/nginx/
+  sudo cp config_files/server/nginx/standalone/rails /etc/nginx/sites-available/
+fi
 
-sudo cp config_files/server/nginx/rails /etc/nginx/sites-available/
 sudo ln -s /etc/nginx/sites-available/rails /etc/nginx/sites-enabled/
 
-sudo cp config_files/server/nginx/health_check /etc/nginx/sites-available/
-sudo ln -s /etc/nginx/sites-available/health_check /etc/nginx/sites-enabled/
+if [[ $proxied == true ]]; then
+  sudo ln -s /etc/nginx/sites-available/health_check /etc/nginx/sites-enabled/
+fi
+
 
 # ImageMagick
 sudo cp config_files/server/image-magick/policy.xml /etc/ImageMagick-6/
