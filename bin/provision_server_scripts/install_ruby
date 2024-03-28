@@ -13,6 +13,3 @@ sudo usermod -a -G rvm $USER
 # Install Ruby Gem dependencies (PostgreSQL and ActiveStorage)
 sudo apt install libpq-dev -y
 sudo apt install imagemagick libvips -y
-
-# Install latest Ruby
-rvm install ruby --latest
