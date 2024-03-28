@@ -1,11 +1,12 @@
 #!/bin/bash
 
-echo "Is this a proxied server (with a load balancer in front)? [true/false]?"
-
-read proxied
-
 echo "Is this a web server, a worker, or both (web, worker, both)?"
 read server_type
+
+if [[ $server_type == web ]] || [[ $server_type == both ]]; then
+  echo "Is the web server proxied (i.e. located behind a load balancer)? [true/false]?"
+  read proxied
+fi
 
 echo "Is this an AWS server (true/false)?"
 read aws_server
