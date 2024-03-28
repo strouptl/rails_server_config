@@ -1,0 +1,4 @@
+#!/bin/bash
+
+curl https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/arm64/latest/amazon-cloudwatch-agent.deb -o ./packages/amazon-cloudwatch-agent/arm64.deb
+curl https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb -o ./packages/amazon-cloudwatch-agent/amd64.deb

@@ -2,17 +2,12 @@
 
 arch=$(arch)
 
+# Install package
 if  [[ $arch == aarch64 ]]; then
-  url=https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/arm64/latest/amazon-cloudwatch-agent.deb
+  sudo dpkg -i -E packages/amazon-cloudwatch-agent/arm64.deb
 else
-  url=https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb
+  sudo dpkg -i -E packages/amazon-cloudwatch-agent/amd64.deb
 fi
-
-# Get package
-wget $url -P ~
-
-# Install packe
-sudo dpkg -i -E ~/amazon-cloudwatch-agent.deb
 
 # Enable and start service
 sudo systemctl enable amazon-cloudwatch-agent
