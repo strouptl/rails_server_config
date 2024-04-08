@@ -8,8 +8,10 @@ if [[ $server_type == web ]] || [[ $server_type == both ]]; then
   read proxied
 fi
 
-echo "Do you need NodeJS and/or yarn for compiling assets? [true/false]"
-read yarn
+if [[ $server_type == web ]] || [[ $server_type == both ]]; then
+  echo "Do you need NodeJS and/or yarn for compiling assets? [true/false]"
+  read yarn
+fi
 
 echo "Is this an AWS server (true/false)?"
 read aws_server
@@ -33,6 +35,10 @@ fi
 
 # Install Ruby
 ./bin/provision_server_scripts/install_ruby
+
+# Install Ruby Gem dependencies (PostgreSQL and ActiveStorage)
+sudo apt install libpq-dev -y
+sudo apt install libvips -y
 
 # Install GeoIpUpdate
 ./bin/provision_server_scripts/install_geoipupdate

@@ -9,7 +9,3 @@ sudo apt-add-repository -y ppa:rael-gc/rvm
 sudo apt-get install rvm -y
 sudo apt-get install libncurses5-dev, libgmp-dev, libssl-dev -y
 sudo usermod -a -G rvm $USER
-
-# Install Ruby Gem dependencies (PostgreSQL and ActiveStorage)
-sudo apt install libpq-dev -y
-sudo apt install libvips -y
