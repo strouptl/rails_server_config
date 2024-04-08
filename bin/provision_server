@@ -1,12 +1,15 @@
 #!/bin/bash
 
-echo "Is this a web server, a worker, or both (web, worker, both)?"
+echo "Is this a web server, a worker, or both? [web, worker, or both]?"
 read server_type
 
 if [[ $server_type == web ]] || [[ $server_type == both ]]; then
   echo "Is the web server proxied (i.e. located behind a load balancer)? [true/false]?"
   read proxied
 fi
+
+echo "Do you need NodeJS and/or yarn for compiling assets? [true/false]"
+read yarn
 
 echo "Is this an AWS server (true/false)?"
 read aws_server
@@ -23,7 +26,10 @@ sudo apt install nginx -y
 sudo apt install logrotate -y
 
 ## Yarn
-sudo apt install yarnpkg -y
+if [[ $yarn == true ]]; then
+  sudo apt install nodejs -y
+  sudo apt install yarnpkg -y
+fi
 
 # Install Ruby
 ./bin/provision_server_scripts/install_ruby
