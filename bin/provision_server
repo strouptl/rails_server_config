@@ -25,14 +25,31 @@ fi
 
 # Install Packages
 
-## PostgreSQL Client
-sudo apt install postgresql-client -y
+## PostgreSQL
+if [[ $production == true ]]; then
+  sudo apt install postgresql-client -y
+else
+  sudo apt install postgresql -y
+fi
+
+## Redis
+if [[ $production == true ]]; then
+  sudo apt install postgresql-tools -y
+else
+  sudo apt install redis -y
+fi
 
 ## Nginx
-sudo apt install nginx -y
+if [[ $production == true ]]; then
+  if [[ $server_type == web ]] || [[ $server_type == both ]]; then
+    sudo apt install nginx -y
+  fi
+fi
 
 ## Logrotate
-sudo apt install logrotate -y
+if [[ $server_type == production ]] ; then
+  sudo apt install logrotate -y
+fi
 
 ## Yarn
 if [[ $yarn == true ]]; then
