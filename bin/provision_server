@@ -1,20 +1,27 @@
 #!/bin/bash
 
-echo "Is this a web server, a worker, or both? [web, worker, or both]?"
-read server_type
+echo "Is this a production server [true/false]?"
+read production
+
+if [[ $production == true ]]; then
+  echo "Is this a web server, a worker, or both? [web, worker, or both]?"
+  read server_type
+fi
 
 if [[ $server_type == web ]] || [[ $server_type == both ]]; then
   echo "Is the web server proxied (i.e. located behind a load balancer)? [true/false]?"
   read proxied
 fi
 
-if [[ $server_type == web ]] || [[ $server_type == both ]]; then
+if [[ $server_type != worker ]]; then
   echo "Do you need NodeJS and/or yarn for compiling assets? [true/false]"
   read yarn
 fi
 
-echo "Is this an AWS server (true/false)?"
-read aws_server
+if [[ $production == true ]]; then
+  echo "Do you want install AWS monitoring tools (true/false)?"
+  read aws_server
+fi
 
 # Install Packages
 
@@ -48,29 +55,31 @@ if [[ $aws_server == true ]]; then
   ./bin/provision_server_scripts/install_aws_cloudwatch
 fi
 
-# Prepare Capistrano Directory
-sudo mkdir /var/www/rails
-sudo chown -R ubuntu:ubuntu /var/www/rails
-mkdir /var/www/rails/shared
-mkdir /var/www/rails/shared/config
-mkdir /var/www/rails/shared/log
+if [[ $production == true ]]; then
+  # Prepare Capistrano Directory
+  sudo mkdir /var/www/rails
+  sudo chown -R ubuntu:ubuntu /var/www/rails
+  mkdir /var/www/rails/shared
+  mkdir /var/www/rails/shared/config
+  mkdir /var/www/rails/shared/log
 
-# Generate self-signed certificate
-if [[ $proxied == true ]]; then
-  ./bin/provision_server_scripts/create_self_signed_certificate
+  # Generate self-signed certificate
+  if [[ $proxied == true ]]; then
+    ./bin/provision_server_scripts/create_self_signed_certificate
+  fi
+
+  # Update config files
+  ./bin/provision_server_scripts/update_config_files
+
+  # Enable services
+  if [[ $server_type == web ]] || [[ $server_type == both ]]; then
+    sudo systemctl enable rails
+  fi
+
+  if [[ $server_type == worker ]] || [[ $server_type == both ]]; then
+    sudo systemctl enable sidekiq
+  fi
+
+  # Reload services
+  sudo systemctl daemon-reload
 fi
-
-# Update config files
-./bin/provision_server_scripts/update_config_files
-
-# Enable services
-if [[ $server_type == web ]] || [[ $server_type == both ]]; then
-  sudo systemctl enable rails
-fi
-
-if [[ $server_type == worker ]] || [[ $server_type == both ]]; then
-  sudo systemctl enable sidekiq
-fi
-
-# Reload services
-sudo systemctl daemon-reload
