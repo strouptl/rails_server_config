@@ -32,7 +32,7 @@ NOTE: This may be configured for you at server creation, depending on the Cloud 
 1. Clone this repo to the home directory of the target server
 
 ```
-git clone https://github.com/strouptl/rails_server_config"
+git clone https://github.com/strouptl/rails_server_config
 ```
 
 2. Run the "provision_server" script and answer the prompts
