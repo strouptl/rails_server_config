@@ -58,18 +58,18 @@ if [[ $yarn == true ]]; then
 fi
 
 # Install Ruby
-./bin/provision_server_scripts/install_ruby
+. ./bin/provision_server_scripts/install_ruby
 
 # Install Ruby Gem dependencies (PostgreSQL and ActiveStorage)
 sudo apt install libpq-dev -y
 sudo apt install libvips -y
 
 # Install GeoIpUpdate
-./bin/provision_server_scripts/install_geoipupdate
+. ./bin/provision_server_scripts/install_geoipupdate
 
 # Install AWS Cloudwatch
 if [[ $aws_server == true ]]; then
-  ./bin/provision_server_scripts/install_aws_cloudwatch
+  . ./bin/provision_server_scripts/install_aws_cloudwatch
 fi
 
 if [[ $production == true ]]; then
@@ -82,11 +82,11 @@ if [[ $production == true ]]; then
 
   # Generate self-signed certificate
   if [[ $proxied == true ]]; then
-    ./bin/provision_server_scripts/create_self_signed_certificate
+    . ./bin/provision_server_scripts/create_self_signed_certificate
   fi
 
   # Update config files
-  ./bin/provision_server_scripts/update_config_files
+  . ./bin/provision_server_scripts/update_config_files
 
   # Enable services
   if [[ $server_type == web ]] || [[ $server_type == both ]]; then
