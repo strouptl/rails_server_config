@@ -18,6 +18,11 @@ if [[ $server_type != worker ]]; then
   read yarn
 fi
 
+if [[ $server_type == worker ]] || [[ $server_type == both ]]; then
+  echo "Do you want to install ClamAV? NOTE: Running ClamAV requires an extra 1.5~2GB RAM. [true/false]"
+  read clamav
+fi
+
 if [[ $production == true ]]; then
   echo "Do you want install AWS monitoring tools (true/false)?"
   read aws_server
@@ -55,6 +60,11 @@ fi
 if [[ $yarn == true ]]; then
   sudo apt install nodejs -y
   sudo apt install yarnpkg -y
+fi
+
+## ClamAV
+if [[ $clamav == true ]]; then
+  sudo apt install clamav clamav-daemon -y
 fi
 
 # Install Ruby
