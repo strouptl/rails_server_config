@@ -18,10 +18,6 @@ if [[ $proxied == true ]]; then
   sudo ln -s /etc/nginx/sites-available/health_check /etc/nginx/sites-enabled/
 fi
 
-
-# ImageMagick
-sudo cp config_files/server/image-magick/policy.xml /etc/ImageMagick-6/
-
 # Services
 sudo cp config_files/server/services/rails.service /etc/systemd/system/
 sudo cp config_files/server/services/rails.socket /etc/systemd/system/
